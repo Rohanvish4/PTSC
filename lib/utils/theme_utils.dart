@@ -1,0 +1,15 @@
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+Future<void> toggleTheme(BuildContext context, ThemeMode currentTheme) async {
+  final newTheme =
+      currentTheme == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
+  // Update theme using Riverpod
+  // Assuming you have a way to access the Riverpod provider here
+  // For example, if you have a ConsumerStatefulWidget:
+  // ref.read(themeModeProvider.notifier).state = newTheme;
+
+  // Persist theme preference
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setString('themeMode', newTheme.toString().split('.')[1]);
+}
