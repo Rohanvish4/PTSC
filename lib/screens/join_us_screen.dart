@@ -42,7 +42,7 @@ class _JoinUsScreenState extends State<JoinUsScreen> {
         // Navigator.pushReplacementNamed(context, '/home'); 
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error submitting registration: ')),
+          SnackBar(content: Text('Error submitting registration: $e')),
         );
       }
     }

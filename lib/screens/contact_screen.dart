@@ -37,7 +37,7 @@ class _ContactScreenState extends State<ContactScreen> {
         _formKey.currentState!.reset();
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error submitting form: ')),
+          SnackBar(content: Text('Error submitting form: $e')),
         );
       }
     }

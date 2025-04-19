@@ -4,4 +4,5 @@ final darkTheme = ThemeData(
   brightness: Brightness.dark,
   primarySwatch: Colors.blueGrey,
   // Define other dark theme properties here
+  scaffoldBackgroundColor: Colors.grey[800],
 );

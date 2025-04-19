@@ -6,10 +6,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Student Club'),
-      ),
-      body: Padding(
+      body:  Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -17,6 +14,7 @@ class HomeScreen extends StatelessWidget {
             // Club Logo (Placeholder)
             const CircleAvatar(
               radius: 50,
+              backgroundColor: Colors.blue,
               child: Icon(Icons.group),
             ),
             const SizedBox(height: 16),

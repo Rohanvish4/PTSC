@@ -25,13 +25,11 @@ Future<void> main() async {
           ? ThemeMode.dark
           : ThemeMode.system;
   runApp(ProviderScope(
-    overrides: [themeModeProvider.overrideWithValue(initialThemeMode)],
+    overrides: [
+      themeModeProvider.overrideWith((ref) => initialThemeMode),
+    ],
     child: const MyApp(),
   ));
-}
-
-extension on StateProvider<ThemeMode> {
-  overrideWithValue(ThemeMode initialThemeMode) {}
 }
 
 class MyApp extends ConsumerWidget {
@@ -80,7 +78,8 @@ class _MainScreenState extends ConsumerState<MainScreen> {
     final themeMode = ref.watch(themeModeProvider);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Student Club'),
+        backgroundColor: Colors.blue,
+        title: const Text('My Student Club'),
         actions: [
           IconButton(
             icon: Icon(

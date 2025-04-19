@@ -1,7 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/services/data_fetch.dart';
 
-class StudyResourcesScreen extends StatelessWidget {
+class StudyResourcesScreen extends StatefulWidget {
   const StudyResourcesScreen({super.key});
+
+  @override
+  State<StudyResourcesScreen> createState() => _StudyResourcesScreenState();
+}
+
+class _StudyResourcesScreenState extends State<StudyResourcesScreen> {
+  late Future<List<dynamic>> _resourcesFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _resourcesFuture = fetchStudyResources();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -9,22 +23,26 @@ class StudyResourcesScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Study Resources'),
       ),
-      body: ListView.builder(
-        itemCount: 5, // Placeholder: Number of resources
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text('Resource ${index + 1}'),
-            subtitle: const Text('Short description or type of resource'),
-            trailing: const Icon(Icons.arrow_forward_ios),
-            onTap: () {
-              // TODO: Implement logic to open/download resource
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Opening Resource ${index + 1}...')),
+      body: FutureBuilder<List<dynamic>>(
+          future: _resourcesFuture,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) {
+                  final resource = snapshot.data![index];
+                  return ListTile(
+                    title: Text(resource['title'] ?? 'No Title'),
+                    subtitle: Text(resource['description'] ?? 'No Description'),
+                  );
+                },
               );
-            },
-          );
-        },
-      ),
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
+          }),
     );
   }
 }
